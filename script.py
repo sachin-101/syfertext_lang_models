@@ -42,7 +42,7 @@ def create_lang_model(model):
             index += 1      # increment
         
     # Save files
-    save_file(vectors, os.path.join(model, 'vectors'))
+    save_file(np.array(vectors), os.path.join(model, 'vectors'))
     save_file(key2row, os.path.join(model, 'key2row'))
     save_file(words, os.path.join(model, 'words'))
     
