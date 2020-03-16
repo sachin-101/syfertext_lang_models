@@ -1,7 +1,9 @@
+
 import spacy
 import pickle
 import mmh3
 import os
+import numpy as np
 
 # This script does the following:
 # 1. Loads a spacy language model
@@ -20,19 +22,22 @@ def save_file(obj, filename):
         pickle.dump(obj, f)
 
 def create_lang_model(nlp):
-    vectors = {}
-    key2rows = {}
-    words = {}
-    for index, word in enumerate(nlp.vocab.strings):
+    vocab_words = list(nlp.vocab.strings)[1:]  # Avoiding the first empty char
+    vocab_size = len(vocab_words)
+    embed_dim = nlp(vocab_words[0]).vector.shape[0]
+    vectors = np.zeros((vocab_size, embed_dim))
+    key2row = {}
+    words = []
+    for index, word in enumerate(vocab_words):
         print(index, word)
         vector = nlp(word).vector
         key = hash_string(word)
-        key2rows[key] =  index
+        key2row[key] =  index
         vectors[index] =  vector
-        words[index] = word
+        words.append(word) 
 
     save_file(vectors, filename='vectors')
-    save_file(key2rows, filename='key2rows')
+    save_file(key2row, filename='key2row')
     save_file(words, filename='words')
     
 
@@ -40,59 +45,3 @@ if __name__ == "__main__":
     nlp = spacy.load("en_core_web_sm")
     create_lang_model(nlp)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## So as of now, I can work with 3 of PRs. NIIIIICEEEEEEEEEEE.
-## It's not that I can resolve any one of them, in just a short
-## span of time, but I can resolve all of them, if I give enough time 
-## to all.
-
-## And, regarding force delete, the main feature he requires is to 
-## add force delete in TensorPointers rather than, VirtualWorkers, cause
-## they already seem to have one of those mehtods.
