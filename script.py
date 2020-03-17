@@ -1,3 +1,4 @@
+import scispacy
 import spacy
 import pickle
 import mmh3
@@ -50,6 +51,6 @@ def create_lang_model(model):
 if __name__ == "__main__":
     # Note: Install the required spacy model by
     # python -m spacy download model_name
-    model = "en_core_web_sm"
+    model = "en_core_sci_sm"
     create_lang_model(model)
 
