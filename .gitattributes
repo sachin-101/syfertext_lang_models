@@ -1,1 +1,2 @@
 en_core_sci_sm/vectors filter=lfs diff=lfs merge=lfs -text
+en_core_sci_md/vectors filter=lfs diff=lfs merge=lfs -text
